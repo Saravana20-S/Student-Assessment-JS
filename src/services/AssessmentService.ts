@@ -3,6 +3,7 @@ import { Question } from "../models/Question";
 import { Trainer } from "../models/Trainer";
 import { AssessmentOperations } from "../interfaces/AssessmentOperations";
 import { StudentException } from "../exceptions/StudentException";
+import { Audit } from "../decorators/Audit";
 
 export class AssessmentService implements AssessmentOperations {
   private assessments: Assessment[] = [];
@@ -22,6 +23,7 @@ export class AssessmentService implements AssessmentOperations {
   // CREATE ASSESSMENT
   // ==========================================
 
+  @Audit()
   public createAssessment(
     title: string,
     description: string,

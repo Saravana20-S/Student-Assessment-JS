@@ -1,17 +1,25 @@
 import { Student } from "./Student";
 import { Assessment } from "./Assessment";
 
+import { Score } from "../types/AssessmentTypes";
+
 export class Result {
   public student: Student;
+
   public assessment: Assessment;
 
-  private score: number;
+  private score: Score;
 
   public correctAnswers: number;
+
   public wrongAnswers: number;
+
   public totalQuestions: number;
+
   public percentage: number;
+
   public grade: string;
+
   public status: string;
 
   constructor(
@@ -24,15 +32,23 @@ export class Result {
     this.assessment = assessment;
 
     this.correctAnswers = correctAnswers;
+
     this.wrongAnswers = wrongAnswers;
 
     this.totalQuestions = assessment.questions.length;
 
-    this.score = 0;
+    this.score = null;
+
     this.percentage = 0;
+
     this.grade = "";
+
     this.status = "FAILED";
   }
+
+  // ==========================================
+  // SET SCORE
+  // ==========================================
 
   public setScore(score: number): void {
     if (score < 0 || score > 100) {
@@ -42,20 +58,37 @@ export class Result {
     this.score = score;
   }
 
+  // ==========================================
+  // GET SCORE
+  // ==========================================
+
   public getScore(): number {
+    if (this.score === null) {
+      return 0;
+    }
+
     return this.score;
   }
+
+  // ==========================================
+  // CALCULATE PERCENTAGE
+  // ==========================================
 
   public calculatePercentage(): void {
     const totalMarks = this.assessment.getTotalMarks();
 
     if (totalMarks === 0) {
       this.percentage = 0;
+
       return;
     }
 
-    this.percentage = (this.score / totalMarks) * 100;
+    this.percentage = (this.getScore() / totalMarks) * 100;
   }
+
+  // ==========================================
+  // CALCULATE GRADE
+  // ==========================================
 
   public calculateGrade(): void {
     if (this.percentage >= 90) {
@@ -70,6 +103,10 @@ export class Result {
       this.grade = "F";
     }
   }
+
+  // ==========================================
+  // CALCULATE STATUS
+  // ==========================================
 
   public calculateStatus(): void {
     if (this.percentage >= 40) {
