@@ -23,6 +23,10 @@ import { ScoreCalculator, calculatePercentage } from "./types/FunctionTypes";
 
 import { Logger } from "./utils/Logger";
 
+const dataProcessor = require("./utils/DataProcessor");
+
+import { ReportService } from "./services/ReportService";
+
 // ==================================================
 // APPLICATION HEADER
 // ==================================================
@@ -189,6 +193,12 @@ console.log("\n========== PHASE 3 : ASSESSMENT MODULE ==========\n");
 const assessmentService = new AssessmentService();
 
 const resultService = new ResultService();
+
+const reportService = new ReportService(
+  studentService,
+  assessmentService,
+  resultService,
+);
 
 // --------------------------------------------------
 // 11. CREATE ASSESSMENT
@@ -553,12 +563,511 @@ console.log("- AUDIT SUCCESS");
 console.log("- AUDIT FAILED");
 
 // ==================================================
+// PHASE 5 - PERSISTENCE
+// ==================================================
+
+console.log("\n========== PHASE 5 : PERSISTENCE ==========\n");
+
+// --------------------------------------------------
+// 32. LOAD ASSESSMENTS FROM JSON
+// --------------------------------------------------
+
+console.log("32. LOAD ASSESSMENTS FROM JSON");
+
+const savedAssessments = assessmentService.getAllAssessments();
+
+console.log(`Assessments loaded: ${savedAssessments.length}`);
+
+savedAssessments.forEach((savedAssessment) => {
+  console.log(
+    `ID: ${savedAssessment.id} | ` +
+      `Title: ${savedAssessment.title} | ` +
+      `Status: ${savedAssessment.status} | ` +
+      `Questions: ${savedAssessment.questions.length}`,
+  );
+});
+
+// --------------------------------------------------
+// 33. LOAD RESULTS FROM JSON
+// --------------------------------------------------
+
+console.log("\n33. LOAD RESULTS FROM JSON");
+
+const savedResults = resultService.getAllResults();
+
+console.log(`Results loaded: ${savedResults.length}`);
+
+savedResults.forEach((savedResult) => {
+  console.log(
+    `Student: ${savedResult.student.name} | ` +
+      `Assessment: ${savedResult.assessment.title} | ` +
+      `Score: ${savedResult.getScore()} | ` +
+      `Percentage: ${savedResult.percentage.toFixed(2)}% | ` +
+      `Status: ${savedResult.status}`,
+  );
+});
+
+// --------------------------------------------------
+// 34. PERSISTENCE VERIFICATION
+// --------------------------------------------------
+
+console.log("\n34. PERSISTENCE VERIFICATION");
+
+console.log("Assessment data is stored in: data/assessments.json");
+
+console.log("Result data is stored in: data/results.json");
+
+console.log(`Total assessments available: ${savedAssessments.length}`);
+
+console.log(`Total results available: ${savedResults.length}`);
+
+console.log("Restart the application to verify that the data is loaded again.");
+
+// ==================================================
+// PHASE 6 - JAVASCRIPT DATA PROCESSING
+// ==================================================
+
+console.log("\n========== PHASE 6 : JAVASCRIPT DATA PROCESSING ==========\n");
+
+// --------------------------------------------------
+// 35. JAVASCRIPT MAP
+// --------------------------------------------------
+
+console.log("35. JAVASCRIPT MAP");
+
+const allStudents = studentService.getAllStudents();
+
+const studentNames = dataProcessor.getStudentNames(allStudents);
+
+console.log("Student names:", studentNames);
+
+// --------------------------------------------------
+// 36. JAVASCRIPT FILTER
+// --------------------------------------------------
+
+console.log("\n36. JAVASCRIPT FILTER");
+
+const batchStudents = dataProcessor.filterStudentsByBatch(allStudents, "B2");
+
+console.log(`Students in B2: ${batchStudents.length}`);
+
+batchStudents.forEach((student: Student) => {
+  console.log(`ID: ${student.id} | Name: ${student.name}`);
+});
+
+// --------------------------------------------------
+// 37. JAVASCRIPT FIND
+// --------------------------------------------------
+
+console.log("\n37. JAVASCRIPT FIND");
+
+const searchedStudent = dataProcessor.findStudentById(
+  allStudents,
+  oopStudent.id,
+);
+
+if (searchedStudent) {
+  console.log(`Found student: ${searchedStudent.name}`);
+} else {
+  console.log("Student not found");
+}
+
+// --------------------------------------------------
+// 38. JAVASCRIPT FIND INDEX
+// --------------------------------------------------
+
+console.log("\n38. JAVASCRIPT FIND INDEX");
+
+const studentIndex = dataProcessor.findStudentIndex(allStudents, oopStudent.id);
+
+console.log(`Student index: ${studentIndex}`);
+
+// --------------------------------------------------
+// 39. JAVASCRIPT SOME
+// --------------------------------------------------
+
+console.log("\n39. JAVASCRIPT SOME");
+
+const hasB2Student = dataProcessor.hasStudentInBatch(allStudents, "B2");
+
+console.log(`Has B2 student: ${hasB2Student}`);
+
+// --------------------------------------------------
+// 40. JAVASCRIPT EVERY
+// --------------------------------------------------
+
+console.log("\n40. JAVASCRIPT EVERY");
+
+const validEmails = dataProcessor.allStudentsHaveEmails(allStudents);
+
+console.log(`All students have valid email format: ${validEmails}`);
+
+// --------------------------------------------------
+// 41. JAVASCRIPT INCLUDES
+// --------------------------------------------------
+
+console.log("\n41. JAVASCRIPT INCLUDES");
+
+const batches = ["B1", "B2", "B3"];
+
+const containsB2 = dataProcessor.containsBatch(batches, "B2");
+
+console.log(`Contains B2: ${containsB2}`);
+
+// --------------------------------------------------
+// 42. JAVASCRIPT REDUCE
+// --------------------------------------------------
+
+console.log("\n42. JAVASCRIPT REDUCE");
+
+const totalScore = dataProcessor.calculateTotalScore(
+  resultService.getAllResults(),
+);
+
+console.log(`Total score: ${totalScore}`);
+
+// --------------------------------------------------
+// 43. JAVASCRIPT AVERAGE
+// --------------------------------------------------
+
+console.log("\n43. JAVASCRIPT AVERAGE");
+
+const averageScore = dataProcessor.calculateAverageScore(
+  resultService.getAllResults(),
+);
+
+console.log(`Average score: ${averageScore.toFixed(2)}`);
+
+// --------------------------------------------------
+// 44. JAVASCRIPT SORT
+// --------------------------------------------------
+
+console.log("\n44. JAVASCRIPT SORT");
+
+const sortedResults = dataProcessor.sortResultsByPercentage(
+  resultService.getAllResults(),
+);
+
+if (sortedResults.length === 0) {
+  console.log("No results available for sorting");
+} else {
+  sortedResults.forEach((sortedResult: any) => {
+    console.log(
+      `${sortedResult.student.name} -> ` +
+        `${sortedResult.percentage.toFixed(2)}%`,
+    );
+  });
+}
+
+// --------------------------------------------------
+// 45. JAVASCRIPT REVERSE
+// --------------------------------------------------
+
+console.log("\n45. JAVASCRIPT REVERSE");
+
+const reversedStudents = dataProcessor.reverseStudents(allStudents);
+
+console.log("Reversed student order:");
+
+reversedStudents.forEach((student: Student) => {
+  console.log(student.name);
+});
+
+// --------------------------------------------------
+// 46. JAVASCRIPT SLICE
+// --------------------------------------------------
+
+console.log("\n46. JAVASCRIPT SLICE");
+
+const topStudents = dataProcessor.getTopStudents(reversedStudents, 2);
+
+console.log("First 2 students after slice:");
+
+topStudents.forEach((student: Student) => {
+  console.log(student.name);
+});
+
+// --------------------------------------------------
+// 47. JAVASCRIPT SPLICE
+// --------------------------------------------------
+
+console.log("\n47. JAVASCRIPT SPLICE");
+
+const removedStudentList = dataProcessor.removeStudentFromArray(allStudents, 0);
+
+console.log(`Original count: ${allStudents.length}`);
+
+console.log(`After splice: ${removedStudentList.length}`);
+
+console.log("Original student array is not modified.");
+
+// --------------------------------------------------
+// 48. JAVASCRIPT CONCAT
+// --------------------------------------------------
+
+console.log("\n48. JAVASCRIPT CONCAT");
+
+const firstStudents = allStudents.slice(0, 1);
+
+const secondStudents = allStudents.slice(1);
+
+const combinedStudents = dataProcessor.combineStudentLists(
+  firstStudents,
+  secondStudents,
+);
+
+console.log(`First list count: ${firstStudents.length}`);
+
+console.log(`Second list count: ${secondStudents.length}`);
+
+console.log(`Combined student count: ${combinedStudents.length}`);
+
+// --------------------------------------------------
+// 49. JAVASCRIPT CALLBACK
+// --------------------------------------------------
+
+console.log("\n49. JAVASCRIPT CALLBACK");
+
+dataProcessor.processStudents(allStudents, (student: Student) => {
+  console.log(`Callback processing: ${student.name}`);
+});
+
+// --------------------------------------------------
+// 50. JAVASCRIPT ARROW FUNCTION
+// --------------------------------------------------
+
+console.log("\n50. JAVASCRIPT ARROW FUNCTION");
+
+const passedResults = dataProcessor.getPassedResults(
+  resultService.getAllResults(),
+);
+
+console.log(`Passed results: ${passedResults.length}`);
+
+passedResults.forEach((passedResult: any) => {
+  console.log(
+    `${passedResult.student.name} -> ` +
+      `${passedResult.percentage.toFixed(2)}%`,
+  );
+});
+
+// --------------------------------------------------
+// 51. JAVASCRIPT TYPE CONVERSION
+// --------------------------------------------------
+
+console.log("\n51. JAVASCRIPT TYPE CONVERSION");
+
+const stringScore = "95";
+
+const numericScore = dataProcessor.convertScoreToNumber(stringScore);
+
+console.log(`Original value: ${stringScore}`);
+
+console.log(`Original type: ${typeof stringScore}`);
+
+console.log(`Converted value: ${numericScore}`);
+
+console.log(`Converted type: ${typeof numericScore}`);
+
+// --------------------------------------------------
+// 52. JAVASCRIPT CLOSURE
+// --------------------------------------------------
+
+console.log("\n52. JAVASCRIPT CLOSURE");
+
+const scoreCounter = dataProcessor.createScoreCounter();
+
+console.log(`Counter: ${scoreCounter()}`);
+
+console.log(`Counter: ${scoreCounter()}`);
+
+console.log(`Counter: ${scoreCounter()}`);
+
+// --------------------------------------------------
+// 53. JAVASCRIPT HOISTING
+// --------------------------------------------------
+
+console.log("\n53. JAVASCRIPT HOISTING");
+
+const hoistedValue = dataProcessor.hoistingDemo();
+
+console.log(`Hoisted function result: ${hoistedValue}`);
+
+// --------------------------------------------------
+// 54. JAVASCRIPT SCOPE
+// --------------------------------------------------
+
+console.log("\n54. JAVASCRIPT SCOPE");
+
+const scopeMessage = dataProcessor.scopeDemo();
+
+console.log(`Scope message: ${scopeMessage}`);
+
+// --------------------------------------------------
+// 55. JAVASCRIPT PROCESSING SUMMARY
+// --------------------------------------------------
+
+console.log("\n55. JAVASCRIPT PROCESSING SUMMARY");
+
+console.log("map        -> transform student objects");
+
+console.log("filter     -> filter students by batch");
+
+console.log("find       -> find student by ID");
+
+console.log("findIndex  -> find student index");
+
+console.log("some       -> check batch existence");
+
+console.log("every      -> check student email condition");
+
+console.log("includes   -> check array value");
+
+console.log("reduce     -> calculate total score");
+
+console.log("sort       -> sort results by percentage");
+
+console.log("reverse    -> reverse student array");
+
+console.log("slice      -> extract part of array");
+
+console.log("splice     -> remove array element");
+
+console.log("concat     -> combine arrays");
+
+console.log("callback   -> execute callback for students");
+
+console.log("arrow      -> filter passed results");
+
+console.log("conversion -> convert string to number");
+
+console.log("closure    -> maintain private counter");
+
+console.log("hoisting   -> demonstrate function hoisting");
+
+console.log("scope      -> demonstrate local scope");
+
+// ==================================================
+// PHASE 7 - REPORTS
+// ==================================================
+
+console.log("\n========== PHASE 7 : REPORTS ==========\n");
+
+// 56 Student Performance Report
+
+console.log("\n--- 56. Student Performance Report ---");
+
+try {
+  const studentReport = reportService.generateStudentReport(101);
+
+  console.log(studentReport);
+} catch (error) {
+  console.error("Student report error:", error);
+}
+
+// 57 Batch Performance Report
+
+console.log("\n--- 57. Batch Performance Report ---");
+
+try {
+  const batchReport = reportService.generateBatchReport("B1");
+
+  console.log(batchReport);
+} catch (error) {
+  console.error("Batch report error:", error);
+}
+
+// 58 Average Score
+
+console.log("\n--- 58. Average Score ---");
+
+const studentAverageScore = reportService.calculateAverageScore(101);
+
+console.log(`Average Score: ${studentAverageScore.toFixed(2)}`);
+
+// 59 Highest Score
+
+console.log("\n--- 59. Highest Score ---");
+
+const highestScore = reportService.calculateHighestScore("B1");
+
+console.log(`Highest Score: ${highestScore}`);
+
+// 60 Lowest Score
+
+console.log("\n--- 60. Lowest Score ---");
+
+const lowestScore = reportService.calculateLowestScore("B1");
+
+console.log(`Lowest Score: ${lowestScore}`);
+
+// 61 Pass Percentage
+
+console.log("\n--- 61. Pass Percentage ---");
+
+const passPercentage = reportService.calculatePassPercentage("B1");
+
+console.log(`Pass Percentage: ${passPercentage.toFixed(2)}%`);
+
+// 62 Performance Classification
+
+console.log("\n--- 62. Performance Classification ---");
+
+const classifications = [95, 80, 65, 45, 30];
+
+classifications.forEach((percentage) => {
+  console.log(
+    `${percentage}% -> ` + reportService.classifyPerformance(percentage),
+  );
+});
+
+// 63 Invalid Student Report
+
+console.log("\n--- 63. Invalid Student Report ---");
+
+try {
+  reportService.generateStudentReport(999);
+} catch (error) {
+  console.error("Expected error:", error);
+}
+
+// 64 Invalid Batch Report
+
+console.log("\n--- 64. Invalid Batch Report ---");
+
+try {
+  reportService.generateBatchReport("UNKNOWN");
+} catch (error) {
+  console.error("Expected error:", error);
+}
+
+// 65 Phase 7 Summary
+
+console.log("\n--- 65. PHASE 7 SUMMARY ---");
+
+console.log("Student report generation: implemented");
+
+console.log("Batch report generation: implemented");
+
+console.log("Average score calculation: implemented");
+
+console.log("Pass percentage calculation: implemented");
+
+console.log("Highest score calculation: implemented");
+
+console.log("Lowest score calculation: implemented");
+
+console.log("Performance classification: implemented");
+
+// ==================================================
 // FINAL SUMMARY
 // ==================================================
 
 console.log("\n==============================================");
 
 console.log(" PHASE 1 + PHASE 2 + PHASE 3 + PHASE 4");
+
+console.log(" PHASE 5 + PHASE 6 + PHASE 7");
 
 console.log(" COMPLETED");
 

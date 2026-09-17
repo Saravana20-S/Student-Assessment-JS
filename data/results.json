@@ -1,0 +1,142 @@
+[
+    {
+        "student": {
+            "id": 103,
+            "name": "Arun",
+            "email": "arun@gmail.com",
+            "score": 0,
+            "batch": "B2",
+            "registrationDate": "2026-09-17T05:13:13.225Z"
+        },
+        "assessment": {
+            "id": 1,
+            "title": "TypeScript Fundamentals",
+            "description": "Basic TypeScript Assessment",
+            "trainer": {
+                "id": 201,
+                "name": "Meena",
+                "email": "meena@gmail.com",
+                "specialization": "TypeScript"
+            },
+            "questions": [
+                {
+                    "id": 1,
+                    "questionText": "Which language is TypeScript based on?",
+                    "options": [
+                        "Java",
+                        "JavaScript",
+                        "Python",
+                        "C++"
+                    ],
+                    "correctAnswer": "JavaScript",
+                    "marks": 5,
+                    "difficulty": "EASY"
+                },
+                {
+                    "id": 2,
+                    "questionText": "Which keyword is used to create a class?",
+                    "options": [
+                        "object",
+                        "class",
+                        "struct",
+                        "define"
+                    ],
+                    "correctAnswer": "class",
+                    "marks": 5,
+                    "difficulty": "MEDIUM"
+                },
+                {
+                    "id": 3,
+                    "questionText": "Which keyword creates a constant variable?",
+                    "options": [
+                        "var",
+                        "let",
+                        "const",
+                        "static"
+                    ],
+                    "correctAnswer": "const",
+                    "marks": 5,
+                    "difficulty": "EASY"
+                }
+            ],
+            "status": "ACTIVE"
+        },
+        "correctAnswers": 3,
+        "wrongAnswers": 0,
+        "totalQuestions": 3,
+        "score": 15,
+        "percentage": 100,
+        "grade": "A",
+        "status": "PASSED"
+    },
+    {
+        "student": {
+            "id": 103,
+            "name": "Arun",
+            "email": "arun@gmail.com",
+            "score": 90,
+            "batch": "B2",
+            "registrationDate": "2026-09-17T05:13:13.220Z"
+        },
+        "assessment": {
+            "id": 3,
+            "title": "TypeScript Fundamentals",
+            "description": "Basic TypeScript Assessment",
+            "trainer": {
+                "id": 201,
+                "name": "Meena",
+                "email": "meena@gmail.com",
+                "specialization": "TypeScript"
+            },
+            "questions": [
+                {
+                    "id": 1,
+                    "questionText": "Which language is TypeScript based on?",
+                    "options": [
+                        "Java",
+                        "JavaScript",
+                        "Python",
+                        "C++"
+                    ],
+                    "correctAnswer": "JavaScript",
+                    "marks": 5,
+                    "difficulty": "EASY"
+                },
+                {
+                    "id": 2,
+                    "questionText": "Which keyword is used to create a class?",
+                    "options": [
+                        "object",
+                        "class",
+                        "struct",
+                        "define"
+                    ],
+                    "correctAnswer": "class",
+                    "marks": 5,
+                    "difficulty": "MEDIUM"
+                },
+                {
+                    "id": 3,
+                    "questionText": "Which keyword creates a constant variable?",
+                    "options": [
+                        "var",
+                        "let",
+                        "const",
+                        "static"
+                    ],
+                    "correctAnswer": "const",
+                    "marks": 5,
+                    "difficulty": "EASY"
+                }
+            ],
+            "status": "ACTIVE"
+        },
+        "correctAnswers": 3,
+        "wrongAnswers": 0,
+        "totalQuestions": 3,
+        "score": 15,
+        "percentage": 100,
+        "grade": "A",
+        "status": "PASSED"
+    }
+]

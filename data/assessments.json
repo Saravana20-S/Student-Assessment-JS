@@ -1,0 +1,134 @@
+[
+    {
+        "id": 1,
+        "title": "TypeScript Fundamentals",
+        "description": "Basic TypeScript Assessment",
+        "trainer": {
+            "id": 201,
+            "name": "Meena",
+            "email": "meena@gmail.com",
+            "specialization": "TypeScript"
+        },
+        "questions": [
+            {
+                "id": 1,
+                "questionText": "Which language is TypeScript based on?",
+                "options": [
+                    "Java",
+                    "JavaScript",
+                    "Python",
+                    "C++"
+                ],
+                "correctAnswer": "JavaScript",
+                "marks": 5,
+                "difficulty": "EASY"
+            },
+            {
+                "id": 2,
+                "questionText": "Which keyword is used to create a class?",
+                "options": [
+                    "object",
+                    "class",
+                    "struct",
+                    "define"
+                ],
+                "correctAnswer": "class",
+                "marks": 5,
+                "difficulty": "MEDIUM"
+            },
+            {
+                "id": 3,
+                "questionText": "Which keyword creates a constant variable?",
+                "options": [
+                    "var",
+                    "let",
+                    "const",
+                    "static"
+                ],
+                "correctAnswer": "const",
+                "marks": 5,
+                "difficulty": "EASY"
+            }
+        ],
+        "status": "ACTIVE"
+    },
+    {
+        "id": 2,
+        "title": "Advanced TypeScript",
+        "description": "Decorator testing assessment",
+        "trainer": {
+            "id": 201,
+            "name": "Meena",
+            "email": "meena@gmail.com",
+            "specialization": "TypeScript"
+        },
+        "questions": [],
+        "status": "DRAFT"
+    },
+    {
+        "id": 3,
+        "title": "TypeScript Fundamentals",
+        "description": "Basic TypeScript Assessment",
+        "trainer": {
+            "id": 201,
+            "name": "Meena",
+            "email": "meena@gmail.com",
+            "specialization": "TypeScript"
+        },
+        "questions": [
+            {
+                "id": 1,
+                "questionText": "Which language is TypeScript based on?",
+                "options": [
+                    "Java",
+                    "JavaScript",
+                    "Python",
+                    "C++"
+                ],
+                "correctAnswer": "JavaScript",
+                "marks": 5,
+                "difficulty": "EASY"
+            },
+            {
+                "id": 2,
+                "questionText": "Which keyword is used to create a class?",
+                "options": [
+                    "object",
+                    "class",
+                    "struct",
+                    "define"
+                ],
+                "correctAnswer": "class",
+                "marks": 5,
+                "difficulty": "MEDIUM"
+            },
+            {
+                "id": 3,
+                "questionText": "Which keyword creates a constant variable?",
+                "options": [
+                    "var",
+                    "let",
+                    "const",
+                    "static"
+                ],
+                "correctAnswer": "const",
+                "marks": 5,
+                "difficulty": "EASY"
+            }
+        ],
+        "status": "ACTIVE"
+    },
+    {
+        "id": 4,
+        "title": "Advanced TypeScript",
+        "description": "Decorator testing assessment",
+        "trainer": {
+            "id": 201,
+            "name": "Meena",
+            "email": "meena@gmail.com",
+            "specialization": "TypeScript"
+        },
+        "questions": [],
+        "status": "DRAFT"
+    }
+]
