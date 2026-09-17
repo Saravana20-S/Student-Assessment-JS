@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build Output
+dist/
+
+# Application Logs (shown in project explorer)
+logs/
+*.log
+
+# Environment Variables & Secrets
+.env
+.env.local
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+
+package-lock.json

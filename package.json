@@ -1,0 +1,16 @@
+{
+  "name": "student-assessment-system",
+  "version": "1.0.0",
+  "description": "Student Assessment and Performance Management System",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "tsx src/main.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.3",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3"
+  }
+}
