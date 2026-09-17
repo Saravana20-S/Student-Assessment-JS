@@ -1,68 +1,87 @@
-import { Student } from "./models/Student";
 import { StudentService } from "./services/StudentService";
-
-console.log("========================================");
-console.log(" Student Assessment & Performance System");
-console.log("========================================");
+import { StudentException } from "./exceptions/StudentException";
 
 const studentService = new StudentService();
 
-const student1 = new Student(
-    101,
-    "Rahul",
-    "rahul@gmail.com",
-    "B1"
-);
+console.log("\n========================================");
 
-const student2 = new Student(
-    102,
-    "Priya",
-    "priya@gmail.com",
-    "B1"
-);
+console.log(" STUDENT ASSESSMENT & PERFORMANCE SYSTEM");
 
-studentService.addStudent(student1);
-studentService.addStudent(student2);
+console.log("========================================\n");
 
-console.log("\nAll Students:");
+try {
+  // ADD STUDENTS
 
-console.log(studentService.getAllStudents());
+  console.log("1. ADD STUDENTS");
 
-console.log("\nFind Student:");
+  const student1 = studentService.addStudent("Rahul", "rahul@gmail.com", "B1");
 
-const student = studentService.getStudentById(101);
+  console.log(student1);
 
-console.log(student);
+  const student2 = studentService.addStudent("Priya", "priya@gmail.com", "B1");
 
-console.log("\nUpdate Student:");
+  console.log(student2);
 
-const updated = studentService.updateStudent(
-    101,
+  // VIEW STUDENTS
+
+  console.log("\n2. VIEW ALL STUDENTS");
+
+  const students = studentService.getAllStudents();
+
+  students.forEach((student) => {
+    console.log(
+      `ID: ${student.id} | ` +
+        `Name: ${student.name} | ` +
+        `Email: ${student.email} | ` +
+        `Batch: ${student.getBatch()}`,
+    );
+  });
+
+  // FIND STUDENT
+
+  console.log("\n3. FIND STUDENT");
+
+  const foundStudent = studentService.getStudentById(student1.id);
+
+  console.log(foundStudent);
+
+  // UPDATE STUDENT
+
+  console.log("\n4. UPDATE STUDENT");
+
+  const updatedStudent = studentService.updateStudent(
+    student1.id,
     "Rahul Kumar",
     "rahulkumar@gmail.com",
-    "B2"
-);
+    "B2",
+  );
 
-console.log(
-    updated
-        ? "Student updated successfully"
-        : "Student not found"
-);
+  console.log(updatedStudent);
 
-console.log(
-    studentService.getStudentById(101)
-);
+  // DELETE STUDENT
 
-console.log("\nDelete Student:");
+  console.log("\n5. DELETE STUDENT");
 
-const deleted = studentService.deleteStudent(102);
+  studentService.deleteStudent(student2.id);
 
-console.log(
-    deleted
-        ? "Student deleted successfully"
-        : "Student not found"
-);
+  console.log(`Student ${student2.id} deleted successfully`);
 
-console.log("\nFinal Students:");
+  // FINAL STUDENT LIST
 
-console.log(studentService.getAllStudents());
+  console.log("\n6. FINAL STUDENT LIST");
+
+  studentService.getAllStudents().forEach((student) => {
+    console.log(
+      `ID: ${student.id} | ` +
+        `Name: ${student.name} | ` +
+        `Email: ${student.email} | ` +
+        `Batch: ${student.getBatch()}`,
+    );
+  });
+} catch (error) {
+  if (error instanceof StudentException) {
+    console.error(`Student Error: ${error.message}`);
+  } else {
+    console.error("Unexpected error occurred", error);
+  }
+}
