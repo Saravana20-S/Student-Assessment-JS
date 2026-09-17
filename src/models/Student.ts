@@ -1,49 +1,42 @@
-import { User } from "../interfaces/User";
+import { AbstractUser } from "./AbstractUser";
 
-export class Student implements User {
+export class Student extends AbstractUser {
+  private score: number = 0;
 
-    public id: number;
-    public name: string;
-    public email: string;
+  public batch: string;
 
-    private score: number = 0;
+  public readonly registrationDate: Date;
 
-    public batch: string;
+  constructor(id: number, name: string, email: string, batch: string) {
+    super(id, name, email);
 
-    public readonly registrationDate: Date;
+    this.batch = batch;
+    this.registrationDate = new Date();
+  }
 
-    constructor(
-        id: number,
-        name: string,
-        email: string,
-        batch: string
-    ) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.batch = batch;
-        this.registrationDate = new Date();
+  public getRole(): string {
+    return "STUDENT";
+  }
+
+  public updateScore(score: number): void {
+    if (score < 0 || score > 100) {
+      throw new Error("Score must be between 0 and 100");
     }
 
-    public updateScore(score: number): void {
-        this.score = score;
-    }
+    this.score = score;
+  }
 
-    public getScore(): number {
-        return this.score;
-    }
+  public getScore(): number {
+    return this.score;
+  }
 
-    public getBatch(): string {
-        return this.batch;
-    }
+  public getBatch(): string {
+    return this.batch;
+  }
 
-    public updateDetails(
-        name: string,
-        email: string,
-        batch: string
-    ): void {
-        this.name = name;
-        this.email = email;
-        this.batch = batch;
-    }
+  public updateDetails(name: string, email: string, batch: string): void {
+    this.name = name;
+    this.email = email;
+    this.batch = batch;
+  }
 }
